@@ -2,10 +2,8 @@ import warnings
 from abc import abstractmethod, ABCMeta
 
 
-
 class Graph(object, metaclass=ABCMeta):
     '''
-
         graph in the form
         {
             node = [[nodeA, weigh1], [nodeB, weigh2]],
@@ -61,26 +59,30 @@ class Graph(object, metaclass=ABCMeta):
 
         # check if start node already exists
         if start_node not in self._graph:
-            warnings.warn("Node {} does not exist, adding it to graph".format(str(start_node)), Warning)
+            warnings.warn("Node {} does not exist, adding it to graph".
+                          format(str(start_node)), Warning)
             self.add_node(start_node)
         edges = self._graph[start_node]
 
         # check if end node already exists
         if end_node not in self._graph:
-            warnings.warn("Node {} does not exist, adding it to graph".format(str(end_node)), Warning)
+            warnings.warn("Node {} does not exist, adding it to graph".
+                          format(str(end_node)), Warning)
             self.add_node(end_node)
 
         # check if edge already exists
-        if self._edge_exists(start_node, end_node):
-            warnings.warn("Edge already exists with weight {}, updating it to {}".format(str(edge[1]), str(weight)), Warning)
-            edge[1] = weight
-            return
-        else:
-            self._graph[start_node].append([end_node, weight])
-            self._edge_count += 1
 
-    
-    @abstractmethod
+        for edge in edges:
+            if edge[0] == end_node:
+                warnings.warn("Edge already exists with weight {}, \
+                               updating it to {}".
+                              format(str(edge[1]), str(weight)), Warning)
+                edge[1] = weight
+                return
+
+        self._graph[start_node].append([end_node, weight])
+        self._edge_count += 1
+
     def delete_node(self, node):
         '''
             Removoes all node dependecnies and then removes node
@@ -89,7 +91,7 @@ class Graph(object, metaclass=ABCMeta):
 
         for key, values in self._graph.items():
             if key == node:
-                # if edge exists from node, 
+                # if edge exists from node,
                 # just reduce the edge count as we'll be removing node later
                 for edge in values:
                     self._edge_count -= 1
@@ -103,12 +105,11 @@ class Graph(object, metaclass=ABCMeta):
         self._graph.pop(node, None)
         self._node_count -= 1
 
-    @abstractmethod
     def delete_edge(self, start_node, end_node):
 
         self._node_exists(start_node)
         self._node_exists(end_node)
-        
+
         edges = self._graph[start_node]
         for edge in edges:
             if edge[0] == end_node:
@@ -152,7 +153,6 @@ class Graph(object, metaclass=ABCMeta):
         self._node_exists(start_node)
         self._node_exists(end_node)
 
-
         if weight is None:
             self.delete_edge(start_node, end_node)
 
@@ -165,7 +165,8 @@ class Graph(object, metaclass=ABCMeta):
                 edge[1] = weight
                 return
 
-        raise AttributeError("Edge from {} to {} does not exist".format(start_node, end_node))
+        raise AttributeError("Edge from {} to {} does not exist".
+                             format(start_node, end_node))
 
     @property
     def nodes(self):
@@ -184,16 +185,16 @@ class Graph(object, metaclass=ABCMeta):
     def return_edges(self, node):
         if self._node_exists(node):
             return self._graph[node]
-            
 
     def get_edge(self, start_node, end_node):
         '''
-            Returns the edge weight, raise AttributeError incase edge does not exist
+            Returns the edge weight,
+            raise AttributeError incase edge does not exist
         '''
 
         self._node_exists(start_node)
         self._node_exists(end_node)
-        
+
         edges = self._graph[start_node]
         for edge in edges:
             if edge[0] == end_node:
@@ -211,7 +212,7 @@ class Graph(object, metaclass=ABCMeta):
     def _node_exists(self, node):
         '''
             check if node exists,
-            returns True if does, 
+            returns True if does,
             Raises error in case not in node
         '''
         if node in self._graph:
@@ -238,21 +239,21 @@ class Graph(object, metaclass=ABCMeta):
             Overwrites existing data in Node
         '''
         self.add_node_data(node, data)
-    
+
     def append_node_data(self, node, data):
         '''
             Appends to existing data in node
         '''
-        if _node_exists(node):
+        if self._node_exists(node):
             if node in self._node_data:
                 existing_data = self._node_data[node]
                 new_data = existing_data.append(data)
                 self._node_data[node] = new_data
             else:
-                warnings.warn("Node data for {} does not exist, creating an entry".format(str(node)), Warning)
-                add_node_data(node, data)
+                warnings.warn("Node data for {} does not exist, \
+                                creating an entry".format(str(node)), Warning)
+                self.add_node_data(node, data)
 
-                
     def _delete_node_data(self, node):
         if self._node_exists(node):
             if node in self._node_data:
@@ -260,49 +261,64 @@ class Graph(object, metaclass=ABCMeta):
             else:
                 ValueError("No data existsfor node {}".format(str(node)))
 
-
     def add_edge_data(self, start_node, end_node, data):
-        if self._node_exists(start_node) and self._node_exists(end_node) and self._edge_exists(start_node, end_node):
+        if \
+            self._node_exists(start_node) and \
+            self._node_exists(end_node) and \
+                self._edge_exists(start_node, end_node):
+
             if isinstance(data, list):
                 edge_name = (start_node, end_node)
                 self._node_data[edge_name] = data
             else:
                 self._node_data[edge_name] = [data]
 
-
     def get_edge_data(self, start_node, end_node):
-        if self._node_exists(start_node) and self._node_exists(end_node) and self._edge_exists(start_node, end_node):
+        if \
+            self._node_exists(start_node) and \
+            self._node_exists(end_node) and \
+                self._edge_exists(start_node, end_node):
+
             edge_name = (start_node, end_node)
             if edge_name in self._edge_data:
                 return self._node_data[edge_name]
             else:
                 AttributeError("Data does not exist")
 
-
     def set_edge_data(self, start_node, end_node, data):
         '''
             Overwrites existing data in Node
         '''
         self.add_edge_data(start_node, end_node, data)
-    
+
     def append_edge_data(self, start_node, end_node, data):
         '''
             Appends to existing Edge in node
         '''
 
-        if self._node_exists(start_node) and self._node_exists(end_node) and self._edge_exists(start_node, end_node):
+        if \
+            self._node_exists(start_node) and \
+            self._node_exists(end_node) and \
+                self._edge_exists(start_node, end_node):
+
             edge_name = (start_node, end_node)
             if edge_name in self._edge_data:
                 existing_data = self._node_data[edge_name]
                 new_data = existing_data.append(data)
                 self._node_data[edge_name] = new_data
             else:
-                warnings.warn("Edge data for {} and {} does not exist, creating an entry".format(str(start_node), str(end_node)), Warning)
-                add_edge_data(start_node, end_node, data)
-    
-    
+                warnings.warn("Edge data for {} and {} does not exist, \
+                              creating an entry".
+                              format(str(start_node), str(end_node)), Warning)
+
+                self.add_edge_data(start_node, end_node, data)
+
     def _delete_edge_data(self, start_node, end_node):
-        if self._node_exists(start_node) and self._node_exists(end_node) and self._edge_exists(start_node, end_node):
+        if \
+            self._node_exists(start_node) and \
+            self._node_exists(end_node) and \
+                self._edge_exists(start_node, end_node):
+
             edge_name = (start_node, end_node)
             if edge_name in self._edge_data:
                 self._node_data.pop(edge_name, None)
@@ -314,7 +330,7 @@ class Graph(object, metaclass=ABCMeta):
             Returns True is edge exists,
             Returns False otherwise
         '''
-        
+
         edges = self._graph[start_node]
         for edge in edges:
             if edge[0] == end_node:

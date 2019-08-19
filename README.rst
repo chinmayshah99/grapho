@@ -16,7 +16,7 @@ grapho
 
 
 
-Yet another graph library
+Yet another Graph Library
 
 
 * Free software: MIT license
