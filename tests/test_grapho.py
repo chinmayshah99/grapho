@@ -6,7 +6,7 @@
 
 import unittest
 
-from grapho import grapho
+# from grapho import grapho
 
 
 class TestGrapho(unittest.TestCase):
