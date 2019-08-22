@@ -190,7 +190,7 @@ class Graph(object):
         '''
         return self._graph
 
-    def return_edges(self, node):
+    def edges_of_node(self, node):
         if self._node_exists(node):
             return self._graph[node]
 
@@ -365,5 +365,5 @@ class Graph(object):
                 g = Graph()
                 g.graph_density()
         '''
-        return ((2.0 * self._edge_count) / 
+        return ((2.0 * self._edge_count) /
                 (self._node_count * (self._node_count - 1)))
