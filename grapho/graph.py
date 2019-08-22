@@ -244,7 +244,7 @@ class Graph(object):
             if node in self._node_data:
                 return self._node_data[node]
             else:
-                AttributeError("Data for node {} does not exist".format(str(node)))
+                raise AttributeError("Data for node {} does not exist".format(str(node)))
 
     def set_node_data(self, node, data):
         '''
@@ -259,8 +259,8 @@ class Graph(object):
         if self._node_exists(node):
             if node in self._node_data:
                 existing_data = self._node_data[node]
-                new_data = existing_data.append(data)
-                self._node_data[node] = new_data
+                existing_data.append(data)
+                self._node_data[node] = existing_data
             else:
                 warnings.warn("Node data for {} does not exist, \
                                 creating an entry".format(str(node)), Warning)
@@ -275,7 +275,7 @@ class Graph(object):
             if node in self._node_data:
                 self._node_data.pop(node, None)
             else:
-                AttributeError("No data exists for node {}".format(str(node)))
+                raise AttributeError("No data exists for node {}".format(str(node)))
 
     def add_edge_data(self, start_node, end_node, data):
         if \
@@ -299,7 +299,7 @@ class Graph(object):
             if edge_name in self._edge_data:
                 return self._edge_data[edge_name]
             else:
-                AttributeError("Data does not exist")
+                raise AttributeError("Data does not exist")
 
     def set_edge_data(self, start_node, end_node, data):
         '''
@@ -320,8 +320,8 @@ class Graph(object):
             edge_name = (start_node, end_node)
             if edge_name in self._edge_data:
                 existing_data = self._edge_data[edge_name]
-                new_data = existing_data.append(data)
-                self._edge_data[edge_name] = new_data
+                existing_data.append(data)
+                self._edge_data[edge_name] = existing_data
             else:
                 warnings.warn("Edge data for {} and {} does not exist, \
                               creating an entry".
@@ -339,7 +339,8 @@ class Graph(object):
             if edge_name in self._edge_data:
                 self._edge_data.pop(edge_name, None)
             else:
-                AttributeError("No data exists")
+                raise AttributeError("No data exists between edge {} and {}"\
+                                     .format(str(start_node), str(end_node)))
 
     def _edge_exists(self, start_node, end_node):
         '''
