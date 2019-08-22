@@ -16,23 +16,25 @@ grapho
 
 
 
-Yet another Graph Library
 
+Grapho is yet another Graph Library, written in Python with the idea of being able to 
+Grapho is compatible with: __Python 3.5-3.7__.
 
 * Free software: MIT license
 * Documentation: https://grapho.readthedocs.io.
 
 
 Features
---------
+========
 
-### Types of Graphs supported
+Types of Graphs supported
+-------------------------
 
-- [x] Directed Graph
+- [X] Directed Graph
 - [ ] UnDirected Graph
-- [x] Node Labeled Graph(store data in Node)
-- [x] Edge Labeled Graph(store data in Edge)
-- [x] Weighted Graph
+- [X] Node Labeled Graph (store data in Node)
+- [X] Edge Labeled Graph (store data in Edge)
+- [X] Weighted Graph
 
 
 Credits
