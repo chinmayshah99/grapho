@@ -1,7 +1,7 @@
 from .graph import Graph
 
 
-class DirectedGraph(object, Graph):
+class DirectedGraph(Graph):
     '''
         Directed graph
         {
@@ -10,8 +10,22 @@ class DirectedGraph(object, Graph):
         }
     '''
 
-    def __init__(self, graph={}):
+    def __init__(self, graph=None):
         '''
-            sdfs
+            
         '''
         super().__init__(graph)
+
+    def in_degree(self, node):
+        '''
+            Returns in degree of a node
+            # TODO
+        '''
+        pass
+
+    def out_degree(self, node):
+        '''
+            Returns out degree of a node
+            # TODO
+        '''
+        pass
