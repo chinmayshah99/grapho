@@ -26,7 +26,14 @@ Yet another Graph Library
 Features
 --------
 
-* TODO
+### Types of Graphs supported
+
+- [x] Directed Graph
+- [ ] UnDirected Graph
+- [x] Node Labeled Graph(store data in Node)
+- [x] Edge Labeled Graph(store data in Edge)
+- [x] Weighted Graph
+
 
 Credits
 -------
