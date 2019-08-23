@@ -17,8 +17,8 @@ grapho
 
 
 
-Grapho is yet another Graph Library, written in Python with the idea of being able to 
-Grapho is compatible with: __Python 3.5-3.7__.
+Grapho is yet another Graph Library, written in Python with the idea of being able to represent
+Grapho is compatible with: Python 3.5-3.7.
 
 * Free software: MIT license
 * Documentation: https://grapho.readthedocs.io.
