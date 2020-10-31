@@ -11,13 +11,13 @@ class Graph(object):
     '''
 
     def __init__(self, graph=None):
-        '''
-            sdfs
-        '''
+        """[summary]
+
+        Args:
+            graph ([type], optional): [description]. Defaults to None.
+        """
         if graph is None:
             self._graph = dict()
-        elif isinstance(graph, dict):
-            self._graph = graph
         else:
             ValueError("Graph should be a dictionary")
 
@@ -28,17 +28,33 @@ class Graph(object):
 
     @property
     def node_count(self):
+        """[summary]
+
+        Returns:
+            int: Number of nodes in the graph
+        """
         return self._node_count
 
     @property
     def edge_count(self):
+        """[summary]
+
+        Returns:
+            int: Number of edges in the graph
+        """
         return self._edge_count
 
     def add_node(self, node):
-        '''
-            Adds node to the graph.
-            If it already exists, raise an Error
-        '''
+        """Adds node to the graph.
+        If it already exists, raise an Error
+
+        Args:
+            node ([type]): [description]
+
+        Raises:
+            an: [description]
+            ValueError: [description]
+        """
         if node not in self._graph:
             self._graph[node] = []
             self._node_count += 1
@@ -90,7 +106,7 @@ class Graph(object):
 
     def delete_node(self, node):
         '''
-            Removoes all node dependecnies and then removes node
+            Removes all node dependecnies and then removes node
         '''
         self._node_exists(node)
 
@@ -111,6 +127,12 @@ class Graph(object):
         self._node_count -= 1
 
     def delete_edge(self, start_node, end_node):
+        """[summary]
+
+        Args:
+            start_node ([type]): [description]
+            end_node ([type]): [description]
+        """
 
         self._node_exists(start_node)
         self._node_exists(end_node)
@@ -178,19 +200,31 @@ class Graph(object):
 
     @property
     def nodes(self):
-        '''
-            returns a list of all nodes
-        '''
+        """returns a list of all nodes
+
+        Returns:
+            [type]: [description]
+        """
         return [*self._graph]
 
     @property
     def graph(self):
-        '''
-            returns the graph
-        '''
+        """Returns the Graph
+
+        Returns:
+            Graph: [description]
+        """
         return self._graph
 
     def edges_of_node(self, node):
+        """[summary]
+
+        Args:
+            node ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if self._node_exists(node):
             return self._graph[node]
 
@@ -217,7 +251,18 @@ class Graph(object):
         except ValueError:
             return False
 
-    def _node_exists(self, node):
+    def _node_exists(self, node) -> bool:
+        """[summary]
+
+        Args:
+            node ([type]): [description]
+
+        Raises:
+            AttributeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
         '''
             check if node exists,
             returns True if does,
@@ -229,6 +274,12 @@ class Graph(object):
             raise AttributeError("Node " + str(node) + " does not exist")
 
     def add_node_data(self, node, data):
+        """[summary]
+
+        Args:
+            node ([type]): [description]
+            data ([type]): [description]
+        """
         if self._node_exists(node):
             if isinstance(data, list):
                 self._node_data[node] = data
@@ -280,6 +331,13 @@ class Graph(object):
                                      .format(str(node)))
 
     def add_edge_data(self, start_node, end_node, data):
+        """[summary]
+
+        Args:
+            start_node ([type]): [description]
+            end_node ([type]): [description]
+            data ([type]): [description]
+        """
         if \
             self._node_exists(start_node) and \
             self._node_exists(end_node) and \
@@ -292,6 +350,18 @@ class Graph(object):
                 self._edge_data[edge_name] = [data]
 
     def get_edge_data(self, start_node, end_node):
+        """[summary]
+
+        Args:
+            start_node ([type]): [description]
+            end_node ([type]): [description]
+
+        Raises:
+            AttributeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
         if \
             self._node_exists(start_node) and \
             self._node_exists(end_node) and \
@@ -332,6 +402,15 @@ class Graph(object):
                 self.add_edge_data(start_node, end_node, data)
 
     def delete_edge_data(self, start_node, end_node):
+        """[summary]
+
+        Args:
+            start_node ([type]): [description]
+            end_node ([type]): [description]
+
+        Raises:
+            AttributeError: [description]
+        """
         if \
             self._node_exists(start_node) and \
             self._node_exists(end_node) and \
